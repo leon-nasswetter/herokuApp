@@ -1,5 +1,5 @@
 import './App.css';
-import {userState, userEffect} from "react"
+import {useState, useEffect} from "react"
 
 function url(path){
   return process.env.NODE_ENV === "development"
@@ -7,10 +7,19 @@ function url(path){
 }
 
 function App() {
+
+  const [ data, setData ] = useState("hi")
+
+  useEffect(() => {
+    fetch(url("/api/"))
+      .then(res => res.json())
+      .then(apiData => setData(apiData.data))
+  }, [])
+
   return (
     <div className="App">
       <header className="App-header">
-        React apps are sweet
+        {data}
       </header>
     </div>
   );
